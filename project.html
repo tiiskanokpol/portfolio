@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Academic Projects | Kanokpol</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Google Fonts: Outfit & Anuphan -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anuphan:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Anuphan', 'sans-serif'],
+                        outfit: ['Outfit', 'sans-serif'],
+                    }
+                }
+            }
+        };
+
+        // Theme init
+        (function() {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        })();
+    </script>
+    <style>
+        body { font-family: 'Anuphan', sans-serif; }
+        .font-outfit { font-family: 'Outfit', sans-serif; }
+        /* Gallery transitions */
+        .main-image { transition: opacity .2s ease, transform .2s ease; }
+        .thumb { transition: transform .15s ease, opacity .15s ease; }
+        .thumb:hover { transform: scale(1.03); }
+        /* Lightbox styling */
+        #lightbox { opacity:0; pointer-events:none; transition: all 0.3s ease; }
+        #lightbox.show { opacity:1; pointer-events:auto; }
+        #lightbox-img { transform:scale(.95); transition: transform .3s ease; }
+        #lightbox.show #lightbox-img { transform:scale(1); }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 transition-colors duration-300 flex flex-col min-h-screen">
+
+    <!-- Sticky Navigation Header -->
+    <header class="sticky top-0 z-40 w-full backdrop-blur-md bg-white/75 dark:bg-slate-950/75 border-b border-slate-200/50 dark:border-slate-900/50 transition-all duration-300">
+        <div class="container mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="index.html" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white font-outfit font-black text-xl shadow-lg shadow-blue-500/25 group-hover:scale-105 transition-transform duration-300">
+                    K
+                </div>
+                <span class="font-outfit font-extrabold text-xl tracking-tight bg-gradient-to-r from-slate-900 to-slate-600 dark:from-white dark:to-slate-300 bg-clip-text text-transparent">
+                    Kanokpol.N
+                </span>
+            </a>
+
+            <nav class="hidden md:flex items-center gap-1">
+                <a href="index.html" id="nav-home" class="px-4 py-2.5 rounded-xl text-sm font-semibold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-900 transition-all duration-200 font-outfit">Home</a>
+                <a href="experience.html" id="nav-experience" class="px-4 py-2.5 rounded-xl text-sm font-semibold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-900 transition-all duration-200 font-outfit">Experience</a>
+                <a href="project.html" id="nav-project" class="px-4 py-2.5 rounded-xl text-sm font-semibold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-900 transition-all duration-200 font-outfit">Projects</a>
+                <a href="awards.html" id="nav-awards" class="px-4 py-2.5 rounded-xl text-sm font-semibold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-900 transition-all duration-200 font-outfit">Awards</a>
+            </nav>
+
+            <div class="flex items-center gap-3">
+                <button id="theme-toggle" class="p-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-white/50 dark:bg-slate-900/50 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white transition-all duration-300 shadow-sm" aria-label="Toggle Theme">
+                    <i class="fa-solid fa-moon dark:hidden text-lg"></i>
+                    <i class="fa-solid fa-sun hidden dark:block text-lg"></i>
+                </button>
+                <a href="mailto:tiis.kanokpol@gmail.com" class="hidden sm:inline-flex items-center justify-center px-5 py-2.5 text-sm font-bold text-white bg-slate-900 dark:bg-white dark:text-slate-900 hover:bg-blue-600 dark:hover:bg-blue-500 hover:text-white dark:hover:text-white rounded-xl transition-all duration-300 shadow-sm shadow-slate-900/10">
+                    Get in Touch
+                </a>
+                <button id="mobile-menu-toggle" class="md:hidden p-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-white/50 dark:bg-slate-900/50 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all duration-300 shadow-sm" aria-label="Toggle menu">
+                    <i class="fa-solid fa-bars text-lg"></i>
+                </button>
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="hidden md:hidden border-t border-slate-200/50 dark:border-slate-900/50 bg-white dark:bg-slate-950 transition-all duration-300">
+            <nav class="container mx-auto px-6 py-4 flex flex-col gap-2">
+                <a href="index.html" class="px-4 py-2.5 rounded-xl text-sm font-semibold text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900 transition-all duration-200">Home</a>
+                <a href="experience.html" class="px-4 py-2.5 rounded-xl text-sm font-semibold text-slate-600 dark:text-slate-400 hover:text-slate-100 dark:hover:bg-slate-900 transition-all duration-200">Experience</a>
+                <a href="project.html" class="px-4 py-2.5 rounded-xl text-sm font-semibold text-slate-900 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-900 transition-all duration-200">Projects</a>
+                <a href="awards.html" class="px-4 py-2.5 rounded-xl text-sm font-semibold text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900 transition-all duration-200">Awards</a>
+                <a href="mailto:tiis.kanokpol@gmail.com" class="px-4 py-2.5 mt-2 rounded-xl text-sm font-bold text-center text-white bg-slate-900 dark:bg-white dark:text-slate-900 hover:bg-blue-600 dark:hover:bg-blue-500 transition-all duration-300">
+                    Contact Me
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Page Content -->
+    <main class="flex-grow container mx-auto px-6 py-12 max-w-4xl">
+        <!-- Header -->
+        <div class="mb-10 text-center md:text-left">
+            <h1 class="text-4xl md:text-5xl font-outfit font-black tracking-tight text-slate-800 dark:text-white mb-3">
+                Academic Projects
+            </h1>
+            <p class="text-slate-500 dark:text-slate-400 max-w-2xl font-light">
+                A showcase of robotics engineering, machine vision, and industrial automation designs from years 1 to 4.
+            </p>
+        </div>
+
+        <!-- Dynamic Filter Controls -->
+        <div class="flex flex-wrap justify-center md:justify-start gap-2 mb-10 border-b border-slate-200/60 dark:border-slate-800/60 pb-6 transition-colors">
+            <button data-filter="all" class="filter-btn px-5 py-2 rounded-xl text-xs font-bold font-outfit bg-blue-600 text-white shadow-md shadow-blue-500/25 transition-all duration-300">
+                All Projects
+            </button>
+            <button data-filter="robotics" class="filter-btn px-5 py-2 rounded-xl text-xs font-bold font-outfit bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-all duration-300">
+                Robotics
+            </button>
+            <button data-filter="embedded" class="filter-btn px-5 py-2 rounded-xl text-xs font-bold font-outfit bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-all duration-300">
+                Embedded Systems
+            </button>
+            <button data-filter="automation" class="filter-btn px-5 py-2 rounded-xl text-xs font-bold font-outfit bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-all duration-300">
+                Industrial Automation
+            </button>
+        </div>
+
+        <!-- Projects Grid List -->
+        <section class="space-y-12">
+            
+            <!-- Project 1: White Post -->
+            <article data-categories="robotics embedded" class="project-card bg-white dark:bg-slate-900 p-6 md:p-8 rounded-3xl shadow-sm border border-slate-200/60 dark:border-slate-800/60 transition-all duration-300">
+                <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
+                    <h2 class="text-2xl md:text-3xl font-outfit font-extrabold text-slate-800 dark:text-slate-100">
+                        White Post: Autonomous Inter-building Robot
+                    </h2>
+                    <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-lg text-xs font-bold font-outfit">Robotics & Navigation</span>
+                </div>
+
+                <!-- Gallery UI Component -->
+                <div class="gallery rounded-2xl overflow-hidden border border-slate-200/50 dark:border-slate-800/50 bg-slate-50 dark:bg-slate-950 p-4" data-gallery="white-post">
+                    <div class="mb-4 relative group/img overflow-hidden rounded-xl bg-slate-200 dark:bg-slate-900">
+                        <img src="pic/proj/white-post.png" alt="White Post Robot Overview" class="w-full h-64 md:h-[400px] object-cover main-image cursor-zoom-in group-hover/img:scale-[1.01] transition-transform duration-300">
+                        <div class="absolute bottom-3 right-3 bg-black/60 backdrop-blur-sm text-white px-2.5 py-1 rounded-lg text-[10px] font-bold font-outfit pointer-events-none flex items-center gap-1">
+                            <i class="fa-solid fa-magnifying-glass"></i> Click to Zoom
+                        </div>
+                    </div>
+                    <!-- Thumbnails -->
+                    <div class="grid grid-cols-2 gap-3">
+                        <img src="pic/proj/white-post.png" data-src="pic/proj/white-post.png" data-caption="White Post Robot Overview" alt="White Post Overview" class="w-full h-24 md:h-32 object-cover rounded-xl cursor-pointer thumb ring-2 ring-blue-600 dark:ring-blue-500">
+                        <img src="pic/proj/white-post-2.png" data-src="pic/proj/white-post-2.png" data-caption="Tracked Drive System Mechanical Design & CAD" alt="Tracked Drive CAD" class="w-full h-24 md:h-32 object-cover rounded-xl cursor-pointer thumb">
+                    </div>
+                </div>
+
+                <!-- Tags -->
+                <div class="flex flex-wrap gap-2 mt-6 mb-4">
+                    <span class="px-2.5 py-1 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 text-xs font-semibold rounded-md">PID Control</span>
+                    <span class="px-2.5 py-1 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 text-xs font-semibold rounded-md">Tracked Drive Design</span>
+                    <span class="px-2.5 py-1 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 text-xs font-semibold rounded-md">Motor Sizing Calculations</span>
+                    <span class="px-2.5 py-1 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 text-xs font-semibold rounded-md">LiDAR-free Navigation</span>
+                </div>
+
+                <div class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed space-y-3">
+                    <p>Designed and engineered a prototype inter-building delivery robot optimized to carry documents between campus offices without relying on expensive 3D LiDAR. I designed the tracked chassis system, calculated optimal track lengths, and sized the high-torque DC motor for optimal performance on rough terrains.</p>
+                    <p>Programmed the control unit using custom PID loops to stabilize motor velocity, enabling smooth navigation over campus sidewalks and grass surfaces.</p>
+                </div>
+            </article>
+
+            <!-- Project 2: White Post V.1 -->
+            <article data-categories="robotics embedded" class="project-card bg-white dark:bg-slate-900 p-6 md:p-8 rounded-3xl shadow-sm border border-slate-200/60 dark:border-slate-800/60 transition-all duration-300">
+                <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
+                    <h2 class="text-2xl md:text-3xl font-outfit font-extrabold text-slate-800 dark:text-slate-100">
+                        White Post V.1
+                    </h2>
+                    <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-lg text-xs font-bold font-outfit">Suspension & Mechanical Design</span>
+                </div>
+
+                <div class="gallery rounded-2xl overflow-hidden border border-slate-200/50 dark:border-slate-800/50 bg-slate-50 dark:bg-slate-950 p-4" data-gallery="white-post-v1">
+                    <div class="mb-4 relative group/img overflow-hidden rounded-xl bg-slate-200 dark:bg-slate-900">
+                        <img src="pic/proj/white-post-V1.png" alt="White Post V.1 Overview" class="w-full h-64 md:h-[400px] object-cover main-image cursor-zoom-in group-hover/img:scale-[1.01] transition-transform duration-300">
+                        <div class="absolute bottom-3 right-3 bg-black/60 backdrop-blur-sm text-white px-2.5 py-1 rounded-lg text-[10px] font-bold font-outfit pointer-events-none flex items-center gap-1">
+                            <i class="fa-solid fa-magnifying-glass"></i> Click to Zoom
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-3 gap-3">
+                        <img src="pic/proj/white-post-V1.png" data-src="pic/proj/white-post-V1.png" data-caption="White Post V.1 Overview" alt="V.1 Overview" class="w-full h-20 md:h-24 object-cover rounded-xl cursor-pointer thumb ring-2 ring-blue-600 dark:ring-blue-500">
+                        <img src="pic/proj/white-post-V1-1.png" data-src="pic/proj/white-post-V1-1.png" data-caption="Rocker-Bogie Mechanical CAD Design" alt="Rocker-Bogie Design" class="w-full h-20 md:h-24 object-cover rounded-xl cursor-pointer thumb">
+                        <img src="pic/proj/white-post-V1-2.png" data-src="pic/proj/white-post-V1-2.png" data-caption="Non-pneumatic flexible wheels design details" alt="Non-pneumatic Wheels" class="w-full h-20 md:h-24 object-cover rounded-xl cursor-pointer thumb">
+                    </div>
+                </div>
+
+                <div class="flex flex-wrap gap-2 mt-6 mb-4">
+                    <span class="px-2.5 py-1 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 text-xs font-semibold rounded-md">Rocker-Bogie Suspension</span>
+                    <span class="px-2.5 py-1 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 text-xs font-semibold rounded-md">CAD Modeling</span>
+                    <span class="px-2.5 py-1 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 text-xs font-semibold rounded-md">Flexible Wheel Engineering</span>
+                </div>
+
+                <div class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
+                    <p>In the initial iteration of the inter-building robot, we developed a active Rocker-Bogie suspension framework for traversing stairs and high curbs. I calculated link kinematics, selected the DC motors, and modeled custom, flexible non-pneumatic compliance wheels to absorb physical impacts.</p>
+                </div>
+            </article>
+
+            <!-- Project 3: RoboDentist -->
+            <article data-categories="robotics" class="project-card bg-white dark:bg-slate-900 p-6 md:p-8 rounded-3xl shadow-sm border border-slate-200/60 dark:border-slate-800/60 transition-all duration-300">
+                <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
+                    <h2 class="text-2xl md:text-3xl font-outfit font-extrabold text-slate-800 dark:text-slate-100">
+                        RoboDentist: Autonomous Clinical Assistant
+                    </h2>
+                    <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-lg text-xs font-bold font-outfit">Clinical Automation</span>
+                </div>
+
+                <div class="gallery rounded-2xl overflow-hidden border border-slate-200/50 dark:border-slate-800/50 bg-slate-50 dark:bg-slate-950 p-4" data-gallery="robodentist">
+                    <div class="mb-4 relative group/img overflow-hidden rounded-xl bg-slate-200 dark:bg-slate-900">
+                        <img src="pic/proj/robodentist-1.png" alt="RoboDentist Overview" class="w-full h-64 md:h-[400px] object-cover main-image cursor-zoom-in group-hover/img:scale-[1.01] transition-transform duration-300">
+                        <div class="absolute bottom-3 right-3 bg-black/60 backdrop-blur-sm text-white px-2.5 py-1 rounded-lg text-[10px] font-bold font-outfit pointer-events-none flex items-center gap-1">
+                            <i class="fa-solid fa-magnifying-glass"></i> Click to Zoom
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-3">
+                        <img src="pic/proj/robodentist-1.png" data-src="pic/proj/robodentist-1.png" data-caption="RoboDentist clinical robot overview" alt="RoboDentist 1" class="w-full h-24 md:h-32 object-cover rounded-xl cursor-pointer thumb ring-2 ring-blue-600 dark:ring-blue-500">
+                        <img src="pic/proj/robodentist-2.png" data-src="pic/proj/robodentist-2.png" data-caption="Internal chassis and tray mechanics" alt="RoboDentist 2" class="w-full h-24 md:h-32 object-cover rounded-xl cursor-pointer thumb">
+                    </div>
+                </div>
+
+                <div class="flex flex-wrap gap-2 mt-6 mb-4">
+                    <span class="px-2.5 py-1 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 text-xs font-semibold rounded-md">Mobile Robotics</span>
+                    <span class="px-2.5 py-1 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 text-xs font-semibold rounded-md">Smart Clinical Delivery</span>
+                    <span class="px-2.5 py-1 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 text-xs font-semibold rounded-md">Product Design</span>
+                </div>
+
+                <div class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
+                    <p>Designed a smart mobile robotic assistant engineered to autonomously transport sensitive dental surgery instruments within clinical environments, maintaining steric hygiene standards and enhancing operational workflow speed.</p>
+                </div>
+            </article>
+
+            <!-- Project 4: PLC-Based Molding -->
+            <article data-categories="automation" class="project-card bg-white dark:bg-slate-900 p-6 md:p-8 rounded-3xl shadow-sm border border-slate-200/60 dark:border-slate-800/60 transition-all duration-300">
+                <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
+                    <h2 class="text-2xl md:text-3xl font-outfit font-extrabold text-slate-800 dark:text-slate-100">
+                        PLC-Based Control Logic for Bottle Molding
+                    </h2>
+                    <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-lg text-xs font-bold font-outfit">Industrial Systems</span>
+                </div>
+
+                <div class="gallery rounded-2xl overflow-hidden border border-slate-200/50 dark:border-slate-800/50 bg-slate-50 dark:bg-slate-950 p-4" data-gallery="plc-bottle">
+                    <!-- Properly Styled Rotated Video Container -->
+                    <div class="relative w-full h-[380px] md:h-[450px] flex items-center justify-center overflow-hidden bg-slate-950 dark:bg-black rounded-xl mb-4 shadow-inner">
+                        <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+                            <div class="text-[10px] text-white/40 uppercase font-bold tracking-widest absolute top-3 font-outfit">Industrial Molding Loop</div>
+                        </div>
+                        <div class="absolute inset-0 flex items-center justify-center" style="transform: rotate(-90deg); transform-origin: center;">
+                            <video controls class="max-h-[75vw] md:max-h-[440px] w-auto rounded-lg shadow-lg pointer-events-auto">
+                                <source src="pic/proj/plc-bottle-0.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-3">
+                        <img src="pic/proj/plc-bottle-1.png" data-src="pic/proj/plc-bottle-1.png" data-caption="Ladder Logic Configuration in Siemens TIA Portal" alt="Ladder Logic" class="w-full h-24 md:h-32 object-cover rounded-xl cursor-pointer thumb ring-2 ring-blue-600 dark:ring-blue-500">
+                        <img src="pic/proj/plc-bottle-2.PNG" data-src="pic/proj/plc-bottle-2.PNG" data-caption="Human-Machine Interface (HMI) Monitoring Dashboard" alt="HMI Screen" class="w-full h-24 md:h-32 object-cover rounded-xl cursor-pointer thumb">
+                    </div>
+                </div>
+
+                <div class="flex flex-wrap gap-2 mt-6 mb-4">
+                    <span class="px-2.5 py-1 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 text-xs font-semibold rounded-md">Siemens TIA Portal</span>
+                    <span class="px-2.5 py-1 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 text-xs font-semibold rounded-md">PLC Ladder Logic</span>
+                    <span class="px-2.5 py-1 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 text-xs font-semibold rounded-md">HMI Screen Design</span>
+                </div>
+
+                <div class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
+                    <p>Designed and tested automation control sequences using Siemens TIA Portal to optimize high-volume plastic bottle blow molding processes. Programmed ladder logic code for sensory integration, heating controls, pneumatic timing, and implemented a functional HMI control terminal for real-time plant diagnostics.</p>
+                </div>
+            </article>
+
+            <!-- Project 5: Machine Vision Arm -->
+            <article data-categories="automation robotics" class="project-card bg-white dark:bg-slate-900 p-6 md:p-8 rounded-3xl shadow-sm border border-slate-200/60 dark:border-slate-800/60 transition-all duration-300">
+                <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
+                    <h2 class="text-2xl md:text-3xl font-outfit font-extrabold text-slate-800 dark:text-slate-100">
+                        Machine Vision with Arm Robot for Automation
+                    </h2>
+                    <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-lg text-xs font-bold font-outfit">Machine Vision</span>
+                </div>
+                <!-- Gallery Wrapper for single image -->
+                <div class="gallery rounded-2xl overflow-hidden border border-slate-200/50 dark:border-slate-800/50 bg-slate-50 dark:bg-slate-950 p-4 mb-6" data-gallery="machine-vision-arm">
+                    <div class="relative group/img overflow-hidden rounded-xl bg-slate-200 dark:bg-slate-900 flex justify-center">
+                        <img src="pic/proj/arm.jpg" alt="Machine Vision with Arm Robot" class="h-[450px] md:h-[550px] w-auto object-contain main-image cursor-zoom-in group-hover/img:scale-[1.01] transition-transform duration-300">
+                        <div class="absolute bottom-3 right-3 bg-black/60 backdrop-blur-sm text-white px-2.5 py-1 rounded-lg text-[10px] font-bold font-outfit pointer-events-none flex items-center gap-1">
+                            <i class="fa-solid fa-magnifying-glass"></i> Click to Zoom
+                        </div>
+                    </div>
+                    <!-- Hidden thumb for lightbox reference -->
+                    <img src="pic/proj/arm.jpg" data-src="pic/proj/arm.jpg" data-caption="Machine Vision with Arm Robot for Sorting & QA Automation" alt="Machine Vision Arm" class="hidden thumb ring-2 ring-blue-600 dark:ring-blue-500">
+                </div>
+
+                <div class="flex flex-wrap gap-2 mb-4">
+                    <span class="px-2.5 py-1 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 text-xs font-semibold rounded-md">OpenCV / Computer Vision</span>
+                    <span class="px-2.5 py-1 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 text-xs font-semibold rounded-md">Robotic Arm Kinematics</span>
+                    <span class="px-2.5 py-1 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 text-xs font-semibold rounded-md">Eye-in-Hand Calibration</span>
+                </div>
+
+                <div class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
+                    <p>Implemented smart sorting and QA automation by integrating open-source computer vision libraries with a 6-DOF robotic manipulator. Programmed eye-in-hand cameras for image classification, dimensional inspection, and coordinate translation mapping, enabling the arm to dynamically detect and sort misaligned production line products.</p>
+                </div>
+            </article>
+
+        </section>
+
+        <!-- Bottom Page Navigation -->
+        <div class="mt-16 flex items-center justify-between border-t border-slate-200 dark:border-slate-900 pt-8 transition-colors duration-300">
+            <a href="index.html" class="inline-flex items-center gap-2 text-sm font-bold text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                <i class="fa-solid fa-arrow-left"></i> Home Page
+            </a>
+            <a href="awards.html" class="inline-flex items-center gap-2 text-sm font-bold text-blue-600 dark:text-blue-400 hover:underline">
+                View Awards <i class="fa-solid fa-arrow-right"></i>
+            </a>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-200 dark:border-slate-900 bg-white dark:bg-slate-950 py-10 transition-colors duration-300">
+        <div class="container mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
+            <p class="text-slate-400 text-xs text-center md:text-left">
+                © 2026 Kanokpol Nontasan. All rights reserved.
+            </p>
+            <p class="text-slate-400 text-xs text-center md:text-right">
+                Built with ❤️ using Tailwind CSS & GitHub Pages
+            </p>
+        </div>
+    </footer>
+
+    <!-- Gallery Multi-Image Lightbox Modal -->
+    <div id="lightbox" class="fixed inset-0 bg-slate-950/90 dark:bg-black/95 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <!-- Close Button -->
+        <button id="lightbox-close" class="absolute top-6 right-6 p-3 rounded-full bg-white/10 text-white hover:bg-white/20 transition-all duration-300" aria-label="Close Lightbox">
+            <i class="fa-solid fa-xmark text-xl"></i>
+        </button>
+        <!-- Nav Controls -->
+        <button id="lightbox-prev" class="absolute left-6 top-1/2 -translate-y-1/2 p-4 rounded-full bg-white/5 text-white hover:bg-white/10 border border-white/10 transition-all duration-200" aria-label="Previous Image">
+            <i class="fa-solid fa-chevron-left text-lg"></i>
+        </button>
+        <button id="lightbox-next" class="absolute right-6 top-1/2 -translate-y-1/2 p-4 rounded-full bg-white/5 text-white hover:bg-white/10 border border-white/10 transition-all duration-200" aria-label="Next Image">
+            <i class="fa-solid fa-chevron-right text-lg"></i>
+        </button>
+
+        <div class="relative max-w-4xl w-full flex flex-col items-center">
+            <img id="lightbox-img" src="" alt="" class="max-h-[75vh] max-w-full rounded-2xl object-contain shadow-2xl border border-white/10" />
+            <div id="lightbox-caption" class="mt-4 px-4 py-2 rounded-xl bg-black/40 text-slate-100 text-sm font-medium text-center max-w-2xl font-outfit border border-white/5"></div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        // Set active nav link helper
+        (function () {
+            try {
+                const path = window.location.pathname;
+                let current = path.split('/').pop();
+                if (!current) current = 'index.html';
+                
+                const navLinks = document.querySelectorAll('header nav a');
+                navLinks.forEach(a => {
+                    const href = a.getAttribute('href').split('/').pop();
+                    if (href === current) {
+                        a.classList.remove('text-slate-600', 'dark:text-slate-400');
+                        a.classList.add('text-blue-600', 'dark:text-blue-400', 'bg-blue-50/50', 'dark:bg-blue-950/30');
+                    }
+                });
+            } catch (e) { console.warn('Nav indicator error:', e); }
+        })();
+
+        // Theme Toggle script
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        themeToggleBtn.addEventListener('click', () => {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+
+        // Mobile Menu script
+        const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Dynamic Filtering
+        document.addEventListener('DOMContentLoaded', function(){
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const projectCards = document.querySelectorAll('.project-card');
+
+            filterButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    filterButtons.forEach(b => {
+                        b.classList.remove('bg-blue-600', 'text-white', 'shadow-md', 'shadow-blue-500/25');
+                        b.classList.add('bg-white', 'dark:bg-slate-900', 'border', 'border-slate-200', 'dark:border-slate-800', 'text-slate-600', 'dark:text-slate-400', 'hover:bg-slate-100', 'dark:hover:bg-slate-800');
+                    });
+                    
+                    btn.classList.add('bg-blue-600', 'text-white', 'shadow-md', 'shadow-blue-500/25');
+                    btn.classList.remove('bg-white', 'dark:bg-slate-900', 'border', 'border-slate-200', 'dark:border-slate-800', 'text-slate-600', 'dark:text-slate-400', 'hover:bg-slate-100', 'dark:hover:bg-slate-800');
+
+                    const filter = btn.getAttribute('data-filter');
+
+                    projectCards.forEach(card => {
+                        const categories = card.getAttribute('data-categories') || '';
+                        if (filter === 'all' || categories.split(' ').includes(filter)) {
+                            card.classList.remove('hidden');
+                        } else {
+                            card.classList.add('hidden');
+                        }
+                    });
+                });
+            });
+        });
+
+        // Gallery & Lightbox script
+        document.addEventListener('DOMContentLoaded', function(){
+            let currentGallery = null;
+            let currentIndex = 0;
+            
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+            const lightboxCaption = document.getElementById('lightbox-caption');
+            const closeBtn = document.getElementById('lightbox-close');
+            const prevBtn = document.getElementById('lightbox-prev');
+            const nextBtn = document.getElementById('lightbox-next');
+
+            function getThumbs() {
+                return currentGallery ? Array.from(currentGallery.querySelectorAll('.thumb')) : [];
+            }
+
+            function updateLightboxImage() {
+                const thumbs = getThumbs();
+                if (!thumbs.length) return;
+                
+                const activeThumb = thumbs[currentIndex];
+                const src = activeThumb.getAttribute('data-src') || activeThumb.src;
+                const caption = activeThumb.getAttribute('data-caption') || activeThumb.alt || '';
+                
+                lightboxImg.src = src;
+                lightboxImg.alt = caption;
+                lightboxCaption.textContent = caption;
+
+                thumbs.forEach(t => t.classList.remove('ring-2', 'ring-blue-600', 'dark:ring-blue-500'));
+                activeThumb.classList.add('ring-2', 'ring-blue-600', 'dark:ring-blue-500');
+            }
+
+            function openLightbox(galleryElem, index) {
+                currentGallery = galleryElem;
+                currentIndex = index;
+                updateLightboxImage();
+                
+                lightbox.classList.remove('hidden');
+                setTimeout(() => lightbox.classList.add('show'), 10);
+                document.body.classList.add('overflow-hidden');
+            }
+
+            function closeLightbox() {
+                lightbox.classList.remove('show');
+                setTimeout(() => lightbox.classList.add('hidden'), 300);
+                document.body.classList.remove('overflow-hidden');
+            }
+
+            function prevImage(e) {
+                if (e) e.stopPropagation();
+                const thumbs = getThumbs();
+                if (!thumbs.length) return;
+                currentIndex = (currentIndex - 1 + thumbs.length) % thumbs.length;
+                updateLightboxImage();
+            }
+
+            function nextImage(e) {
+                if (e) e.stopPropagation();
+                const thumbs = getThumbs();
+                if (!thumbs.length) return;
+                currentIndex = (currentIndex + 1) % thumbs.length;
+                updateLightboxImage();
+            }
+
+            // Hook up galleries
+            document.querySelectorAll('.gallery').forEach(gallery => {
+                const thumbs = gallery.querySelectorAll('.thumb');
+                const mainImage = gallery.querySelector('.main-image');
+
+                thumbs.forEach((thumb, index) => {
+                    // Click thumb: update main image (hover style transition)
+                    thumb.addEventListener('click', () => {
+                        const src = thumb.getAttribute('data-src');
+                        if (mainImage && src) {
+                            mainImage.style.opacity = '0';
+                            setTimeout(() => {
+                                mainImage.src = src;
+                                mainImage.style.opacity = '1';
+                            }, 120);
+                        }
+                        thumbs.forEach(t => t.classList.remove('ring-2', 'ring-blue-600', 'dark:ring-blue-500'));
+                        thumb.classList.add('ring-2', 'ring-blue-600', 'dark:ring-blue-500');
+                    });
+
+                    // Double click: zoom/lightbox
+                    thumb.addEventListener('dblclick', () => {
+                        openLightbox(gallery, index);
+                    });
+                });
+
+                if (mainImage) {
+                    mainImage.addEventListener('click', () => {
+                        const activeThumb = gallery.querySelector('.thumb.ring-2');
+                        const idx = Array.from(thumbs).indexOf(activeThumb);
+                        openLightbox(gallery, idx >= 0 ? idx : 0);
+                    });
+                }
+            });
+
+            closeBtn.addEventListener('click', closeLightbox);
+            prevBtn.addEventListener('click', prevImage);
+            nextBtn.addEventListener('click', nextImage);
+
+            lightbox.addEventListener('click', (e) => {
+                if (e.target === lightbox || (e.target.closest('.relative') === null && !e.target.closest('button'))) {
+                    closeLightbox();
+                }
+            });
+
+            document.addEventListener('keydown', (e) => {
+                if (!lightbox.classList.contains('show')) return;
+                if (e.key === 'Escape') closeLightbox();
+                if (e.key === 'ArrowLeft') prevImage();
+                if (e.key === 'ArrowRight') nextImage();
+            });
+        });
+    </script>
+</body>
+</html>

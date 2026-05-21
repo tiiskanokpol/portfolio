@@ -1,0 +1,7 @@
+# Ignore large video files
+pic/proj/white-post-3.MOV
+
+# Ignore python virtual environments
+.venv/
+__pycache__/
+*.pyc

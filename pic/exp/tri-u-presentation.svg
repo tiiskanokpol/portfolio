@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 320">
+  <defs>
+    <linearGradient id="grad" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#f59e0b"/>
+      <stop offset="100%" stop-color="#ea580c"/>
+    </linearGradient>
+  </defs>
+  <rect width="480" height="320" rx="24" ry="24" fill="#0f172a" />
+  <rect x="36" y="40" width="408" height="88" rx="18" fill="#020617" opacity="0.8" />
+  <text x="54" y="80" fill="#ffffff" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="700">Tri-U Symposium</text>
+  <text x="54" y="108" fill="#94a3b8" font-family="Inter, Arial, sans-serif" font-size="16">Mie University, Japan</text>
+  <rect x="60" y="140" width="360" height="132" rx="20" fill="#1e293b" />
+  <path d="M92 180 L148 140 L168 160 L220 114 L256 156 L300 124 L342 180" fill="none" stroke="url(#grad)" stroke-width="16" stroke-linecap="round"/> 
+  <circle cx="112" cy="246" r="20" fill="#fbbf24" opacity="0.8"/>
+  <circle cx="322" cy="226" r="18" fill="#fb923c" opacity="0.9"/>
+  <text x="72" y="230" fill="#cbd5e1" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="700">DenTalk Presentation</text>
+  <text x="72" y="254" fill="#94a3b8" font-family="Inter, Arial, sans-serif" font-size="14">Clinical communication design for disability support</text>
+</svg>
